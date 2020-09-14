@@ -334,7 +334,7 @@ C_B_WHITE=`	code_to_color '0;1;47'`
 # output function
 function display(){
 	for i in ${!ascii[@]}; do
-		echo -e "$color_base${ascii[i]}$C_RESET${output_text[0]}$C_RESET"
+		echo -e "$color_base${ascii[i]}$C_RESET$this_pad${output_text[0]}$C_RESET"
 		unset 'output_text[0]'
 		output_text=( "${output_text[@]}" )
 	done
@@ -348,7 +348,7 @@ function display(){
 # function to add text on the right
 function output_add_raw(){
 	local add="$@"
-	[[ "$truncate" -ne 0 ]] && \
+	[[ "$truncate" -ne 0 ]] && \ # TODO truncate string
 		add="${add}$C_RESET"
 
 	output_text=( "${output_text[@]}" "$add" )
@@ -372,6 +372,7 @@ function get_len_set(){
 		pad="$pad "
 		((i++))
 	done
+	verb "setting pad as: -$pad-"
 }
 
 # tux the penguin as a function
